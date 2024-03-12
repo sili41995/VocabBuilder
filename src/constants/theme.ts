@@ -32,15 +32,16 @@ interface ITheme {
   //   secondary: number;
   //   other: number;
   // };
-  // padding: {
-  //   containerPadding: number;
-  //   primarySectionPadding: number;
-  //   secondarySectionPadding: number;
-  // };
-  // containerWidth: {
-  //   primaryDesktopSize: 1184;
-  //   otherDesktopSize: 1312;
-  // };
+  padding: {
+    container: number;
+    // primarySectionPadding: number;
+    // secondarySectionPadding: number;
+  };
+  containerWidth: {
+    desktop: number;
+    tablet: number;
+    mobile: number;
+  };
   transitionDurationAndFunc: string;
   spacing: (value?: number) => string;
 }
@@ -75,15 +76,16 @@ const theme: ITheme = {
   //   secondary: 18,
   //   other: 14,
   // },
-  // padding: {
-  //   containerPadding: 16,
-  //   primarySectionPadding: 20,
-  //   secondarySectionPadding: 96,
-  // },
-  // containerWidth: {
-  //   primaryDesktopSize: 1184,
-  //   otherDesktopSize: 1312,
-  // },
+  padding: {
+    container: 16,
+    // primarySectionPadding: 20,
+    // secondarySectionPadding: 96,
+  },
+  containerWidth: {
+    desktop: 1240,
+    tablet: 704,
+    mobile: 343,
+  },
   transitionDurationAndFunc: '250ms cubic-bezier(0.4, 0, 0.2, 1)',
   spacing: (value = 1) => `${value * 4}px`,
 };

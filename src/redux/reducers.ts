@@ -2,7 +2,7 @@
 // import storage from 'redux-persist/lib/storage';
 import { combineReducers } from '@reduxjs/toolkit';
 // import teachersReducer from '@/redux/teachers/teachersSlice';
-// import authReducer from '@/redux/auth/authSlice';
+import authReducer from '@/redux/auth/authSlice';
 
 // const persistConfig = {
 //   key: 'auth',
@@ -14,7 +14,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
   // teachers: persistedReducer,
-  // auth: authReducer,
+  auth: authReducer,
 });
 
 export default rootReducer;

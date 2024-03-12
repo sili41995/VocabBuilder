@@ -1,11 +1,10 @@
 enum PagePaths {
   homePath = '/',
-  eventsPath = '/events',
-  eventPlanningPath = '/event-planning',
-  addNewEventPath = 'new-event',
-  aboutPath = '/about',
-  signUpPath = '/signup',
-  signInPath = '/signin',
+  register = '/register',
+  login = '/login',
+  dictionary = '/dictionary',
+  recommend = '/recommend',
+  training = '/training',
   dynamicParam = 'id',
 }
 
