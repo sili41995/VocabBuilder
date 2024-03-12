@@ -31,10 +31,10 @@ const App: FC = () => {
     <Loader />
   ) : (
     <Routes>
-      <Route path={PagePaths.homePath} element={<SharedLayout />}>
+      <Route path={PagePaths.home} element={<SharedLayout />}>
         <Route
           index
-          element={<PublicRoute restricted element={<LoginPage />} />}
+          element={<PublicRoute restricted element={<RegisterPage />} />}
         />
         <Route
           path={PagePaths.register}

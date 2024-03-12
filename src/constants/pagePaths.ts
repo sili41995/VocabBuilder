@@ -1,5 +1,5 @@
 enum PagePaths {
-  homePath = '/',
+  home = '/',
   register = '/register',
   login = '/login',
   dictionary = '/dictionary',
