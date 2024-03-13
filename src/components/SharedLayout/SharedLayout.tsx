@@ -4,13 +4,14 @@ import Loader from '@/components/Loader';
 import { Header, Main } from './SharedLayout.styled';
 import Container from '@/components/Container';
 import { Outlet } from 'react-router-dom';
+import { privateNavLinks } from '@/constants';
 
 const SharedLayout: FC = () => {
   return (
     <>
       <Header>
         <Container>
-          <NavigationBar />
+          <NavigationBar privateNavLinks={privateNavLinks} />
         </Container>
       </Header>
       <Main>

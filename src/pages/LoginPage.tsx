@@ -1,7 +1,16 @@
+import AuthForm from '@/components/AuthForm';
+import AuthSection from '@/components/AuthSection/AuthSection';
+import LogInForm from '@/components/LogInForm';
+import Possibilities from '@/components/Possibilities';
 import { FC } from 'react';
 
-const LoginPage: FC = () => {
-  return <div>LoginPage</div>;
-};
+const LoginPage: FC = () => (
+  <AuthSection>
+    <AuthForm>
+      <LogInForm />
+    </AuthForm>
+    <Possibilities />
+  </AuthSection>
+);
 
 export default LoginPage;

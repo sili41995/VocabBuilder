@@ -1,15 +1,22 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-top: ${({ theme }) => theme.spacing(5)};
   padding-bottom: ${({ theme }) => theme.spacing(5)};
 `;
 
 export const Nav = styled.nav`
+  display: flex;
+  gap: 303px;
+
   & > a {
     display: flex;
     align-items: center;
     gap: ${({ theme }) => theme.spacing(4)};
+    padding-right: 13px;
 
     & > svg {
       width: 36px;

@@ -1,24 +1,25 @@
 import { IState } from '@/types/types';
 
 const initialState: IState = {
-  // contacts: {
-  //   items: [],
-  //   count: null,
-  //   isLoading: false,
-  //   isLoaded: false,
-  //   error: null,
-  // },
+  words: {
+    items: [],
+    totalPages: null,
+    page: null,
+    perPage: null,
+    isLoading: false,
+    isLoaded: false,
+    error: null,
+  },
   auth: {
-    // user: {
-    //   name: null,
-    //   email: null,
-    //   avatar: null,
-    // },
+    user: {
+      name: null,
+      email: null,
+    },
     token: null,
     isLoggedIn: false,
     isRefreshing: false,
-    // isLoading: false,
-    // error: null,
+    isLoading: false,
+    error: null,
   },
 };
 

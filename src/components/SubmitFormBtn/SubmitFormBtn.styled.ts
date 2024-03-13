@@ -15,4 +15,8 @@ export const Button = styled.button`
   font-weight: 700;
   line-height: 1.56;
   letter-spacing: 0%;
+
+  &:disabled {
+    background-color: rgb(165, 192, 184);
+  }
 `;

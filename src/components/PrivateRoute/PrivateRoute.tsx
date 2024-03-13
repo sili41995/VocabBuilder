@@ -10,10 +10,9 @@ const PrivateRoute: FC<IProps> = ({ element }) => {
   const isRefreshing = useAppSelector(selectIsRefreshing);
   const location = useLocation();
   const shouldRedirect = !isLoggedIn && !isRefreshing;
-  const homePath = `/${PagePaths.login}`;
 
   return shouldRedirect ? (
-    <Navigate to={homePath} state={{ from: location }} />
+    <Navigate to={PagePaths.login} state={{ from: location }} />
   ) : (
     element
   );

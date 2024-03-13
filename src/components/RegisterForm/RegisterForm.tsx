@@ -13,9 +13,16 @@ import {
 import Input from '../Input';
 import { toasts } from '@/utils';
 import AuthFormControls from '../AuthFormControls';
+import { signUp } from '@/redux/auth/operations';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { useNavigate } from 'react-router-dom';
+import { selectIsLoading } from '@/redux/auth/selectors';
 
 const RegisterForm: FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const isLoading = useAppSelector(selectIsLoading);
   const {
     register,
     formState: { errors, isSubmitting },
@@ -44,7 +51,15 @@ const RegisterForm: FC = () => {
   };
 
   const handleFormSubmit: SubmitHandler<INewUser> = (data) => {
-    console.log(data);
+    dispatch(signUp(data))
+      .unwrap()
+      .then(() => {
+        toasts.successToast(Messages.greetings);
+        navigate(PagePaths.dictionary);
+      })
+      .catch((error) => {
+        toasts.errorToast(error);
+      });
   };
 
   return (
@@ -94,7 +109,7 @@ const RegisterForm: FC = () => {
         <AuthFormControls
           navLinkPath={PagePaths.login}
           navLinkTitle='Login'
-          submitBtnDisabled={false}
+          submitBtnDisabled={isLoading}
           submitBtnTitle='Register'
         />
       </Form>
