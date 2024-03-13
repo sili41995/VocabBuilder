@@ -1,28 +1,43 @@
-import { PagePaths, regExp } from '@/constants';
-import { FC, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { InputTypes, Messages, PagePaths, regExp } from '@/constants';
+import { FC, useEffect, useState } from 'react';
 import { LuEyeOff } from 'react-icons/lu';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { INewUser } from '@/types/types';
 import {
-  ControlsWrap,
   Description,
   Form,
-  Input,
-  InputWrap,
   InputsContainer,
   ShowPassBtn,
-  SubmitFormBtn,
   Title,
 } from './RegisterForm.styled';
+import Input from '../Input';
+import { toasts } from '@/utils';
+import AuthFormControls from '../AuthFormControls';
 
 const RegisterForm: FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const {
     register,
-    // formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting },
     handleSubmit,
   } = useForm<INewUser>();
+  const passInputType = showPassword ? InputTypes.text : InputTypes.password;
+
+  useEffect(() => {
+    errors.name && toasts.errorToast(Messages.nameReqErr);
+    errors.email &&
+      toasts.errorToast(
+        errors.email.type === 'required'
+          ? Messages.emailReqErr
+          : Messages.emailRegExpErr
+      );
+    errors.password &&
+      toasts.errorToast(
+        errors.password.type === 'required'
+          ? Messages.passReqErr
+          : Messages.passRegExpErr
+      );
+  }, [isSubmitting, errors]);
 
   const onShowPassBtnClick = () => {
     setShowPassword((prevState) => !prevState);
@@ -42,38 +57,46 @@ const RegisterForm: FC = () => {
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputsContainer>
           <Input
-            type='text'
-            {...register('name', {
-              required: true,
-            })}
+            type={InputTypes.text}
+            settings={{
+              ...register('name', {
+                required: true,
+              }),
+            }}
             placeholder='Name'
           />
           <Input
-            type='email'
-            {...register('email', {
-              required: true,
-              pattern: regExp.email,
-            })}
+            type={InputTypes.email}
+            settings={{
+              ...register('email', {
+                required: true,
+                pattern: regExp.email,
+              }),
+            }}
             placeholder='Email'
           />
-          <InputWrap>
-            <Input
-              type={showPassword ? 'text' : 'password'}
-              {...register('password', {
+          <Input
+            type={passInputType}
+            settings={{
+              ...register('password', {
                 required: true,
                 pattern: regExp.password,
-              })}
-              placeholder='Password'
-            />
-            <ShowPassBtn type='button' onClick={onShowPassBtnClick}>
-              <LuEyeOff size={20} />
-            </ShowPassBtn>
-          </InputWrap>
+              }),
+            }}
+            placeholder='Password'
+            button={
+              <ShowPassBtn type='button' onClick={onShowPassBtnClick}>
+                <LuEyeOff size={20} />
+              </ShowPassBtn>
+            }
+          />
         </InputsContainer>
-        <ControlsWrap>
-          <SubmitFormBtn type='submit'>Register</SubmitFormBtn>
-          <Link to={PagePaths.login}>Login</Link>
-        </ControlsWrap>
+        <AuthFormControls
+          navLinkPath={PagePaths.login}
+          navLinkTitle='Login'
+          submitBtnDisabled={false}
+          submitBtnTitle='Register'
+        />
       </Form>
     </>
   );

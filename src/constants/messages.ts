@@ -1,4 +1,5 @@
 const enum Messages {
+  nameReqErr = 'Name is required',
   emailReqErr = 'Email is required',
   emailRegExpErr = 'Value must follow the standard email address format',
   passReqErr = 'Password is required',

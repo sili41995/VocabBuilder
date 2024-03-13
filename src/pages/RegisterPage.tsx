@@ -1,5 +1,6 @@
 import AuthForm from '@/components/AuthForm';
 import AuthSection from '@/components/AuthSection/AuthSection';
+import Possibilities from '@/components/Possibilities';
 import RegisterForm from '@/components/RegisterForm';
 import { FC } from 'react';
 
@@ -9,6 +10,7 @@ const RegisterPage: FC = () => {
       <AuthForm>
         <RegisterForm />
       </AuthForm>
+      <Possibilities />
     </AuthSection>
   );
 };

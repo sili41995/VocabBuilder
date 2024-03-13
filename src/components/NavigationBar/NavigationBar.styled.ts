@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  padding-top: ${({ theme }) => theme.spacing(5)};
+  padding-bottom: ${({ theme }) => theme.spacing(5)};
+`;
 
 export const Nav = styled.nav`
   & > a {
