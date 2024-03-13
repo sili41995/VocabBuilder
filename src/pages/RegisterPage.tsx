@@ -1,15 +1,15 @@
 import AuthForm from '@/components/AuthForm';
-import Container from '@/components/Container';
+import AuthSection from '@/components/AuthSection/AuthSection';
 import RegisterForm from '@/components/RegisterForm';
 import { FC } from 'react';
 
 const RegisterPage: FC = () => {
   return (
-    <Container>
+    <AuthSection>
       <AuthForm>
         <RegisterForm />
       </AuthForm>
-    </Container>
+    </AuthSection>
   );
 };
 
