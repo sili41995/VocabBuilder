@@ -92,3 +92,10 @@ export interface IUseSetSearchParams {
 }
 
 export type InputClick = MouseEvent<HTMLInputElement>;
+
+export interface IWordsInfo {
+  results: Words;
+  totalPages: number;
+  page: number;
+  perPage: number;
+}

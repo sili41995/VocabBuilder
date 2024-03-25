@@ -1,9 +1,7 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import initialState from '@/redux/initialState';
-// import {} from './operations';
-// import { signOutUser } from 'redux/auth/operations';
 import { IWordsState } from '@/types/types';
-import { fetchCategories } from './operations';
+import { createNewWord, fetchAllWords, fetchCategories } from './operations';
 
 const contactsState: IWordsState = initialState.words;
 
@@ -19,15 +17,44 @@ const contactsSlice = createSlice({
         isLoading: false,
         error: initialState.words.error,
       }))
-      .addMatcher(isAnyOf(fetchCategories.pending), (state) => ({
+      .addCase(fetchAllWords.fulfilled, (state, { payload }) => ({
         ...state,
-        isLoading: true,
-      }))
-      .addMatcher(isAnyOf(fetchCategories.rejected), (state, { payload }) => ({
-        ...state,
+        items: [...state.items, ...payload.results],
         isLoading: false,
-        error: payload as string,
-      }));
+        error: initialState.words.error,
+        page: payload.page,
+        perPage: payload.perPage,
+        totalPages: payload.totalPages,
+      }))
+      .addCase(createNewWord.fulfilled, (state, { payload }) => ({
+        ...state,
+        items: [...state.items, payload],
+        isLoading: false,
+        error: initialState.words.error,
+      }))
+      .addMatcher(
+        isAnyOf(
+          fetchCategories.pending,
+          fetchAllWords.pending,
+          createNewWord.pending
+        ),
+        (state) => ({
+          ...state,
+          isLoading: true,
+        })
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchCategories.rejected,
+          fetchAllWords.rejected,
+          createNewWord.rejected
+        ),
+        (state, { payload }) => ({
+          ...state,
+          isLoading: false,
+          error: payload as string,
+        })
+      );
   },
 });
 

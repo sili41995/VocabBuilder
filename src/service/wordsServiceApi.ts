@@ -5,6 +5,8 @@ import {
   IAuthRes,
   ICurrentUser,
   INewUser,
+  IWord,
+  IWordsInfo,
   NewWord,
 } from '@/types/types';
 
@@ -97,6 +99,26 @@ class WordsServiceApi {
       });
   }
 
+  fetchAllWords(signal: AbortSignal): Promise<IWordsInfo> {
+    const options = {
+      signal,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/words/all`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
   createNewWord(data: NewWord): Promise<Filters> {
     const options = {
       method: 'POST',
@@ -108,6 +130,25 @@ class WordsServiceApi {
     };
 
     return fetch(`${this.BASE_URL}/words/create`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
+  addToDictionary(id: string): Promise<IWord> {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/words/add/${id}`, options)
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
