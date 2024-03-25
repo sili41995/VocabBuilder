@@ -1,5 +1,5 @@
 import AuthForm from '@/components/AuthForm';
-import AuthSection from '@/components/AuthSection/AuthSection';
+import AuthSection from '@/components/AuthSection';
 import Possibilities from '@/components/Possibilities';
 import RegisterForm from '@/components/RegisterForm';
 import { FC } from 'react';

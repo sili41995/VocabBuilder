@@ -3,21 +3,21 @@ declare module '@emotion/react' {
 }
 
 interface ITheme {
-  // colors: {
-  //   backdropColor: string;
-  //   primaryFontColor: string;
-  //   secondaryColor: string;
-  //   primaryColor: string;
-  //   titleColor: string;
-  //   sectionColor: string;
-  //   iconColor: string;
-  //   descriptionColor: string;
-  //   otherColor: string;
-  //   accentColor: string;
-  //   outlineColor: string;
-  //   greenColor: string;
-  //   whiteColor: string;
-  // };
+  colors: {
+    //   backdropColor: string;
+    //   primaryFontColor: string;
+    //   secondaryColor: string;
+    //   primaryColor: string;
+    //   titleColor: string;
+    //   sectionColor: string;
+    //   iconColor: string;
+    //   descriptionColor: string;
+    //   otherColor: string;
+    //   accentColor: string;
+    //   outlineColor: string;
+    //   greenColor: string;
+    whiteColor: string;
+  };
   // fontFamily: {
   //   primaryFontFamily: string;
   // };
@@ -47,21 +47,21 @@ interface ITheme {
 }
 
 const theme: ITheme = {
-  // colors: {
-  //   outlineColor: 'rgba(18, 20, 23, 0.1)',
-  //   backdropColor: 'rgba(18, 20, 23, 0.50)',
-  //   primaryColor: '#F4C550',
-  //   secondaryColor: '#fbe9ba',
-  //   otherColor: 'rgba(18, 20, 23, 0.2)',
-  //   iconColor: '#ffc531',
-  //   titleColor: '#8a8a89',
-  //   sectionColor: '#f8f8f8',
-  //   greenColor: '#38cd3e',
-  //   descriptionColor: 'rgba(18, 20, 23, 0.8)',
-  //   primaryFontColor: '#121417',
-  //   accentColor: '#0b44cd',
-  //   whiteColor: '#FFFFFF',
-  // },
+  colors: {
+    //   outlineColor: 'rgba(18, 20, 23, 0.1)',
+    //   backdropColor: 'rgba(18, 20, 23, 0.50)',
+    //   primaryColor: '#F4C550',
+    //   secondaryColor: '#fbe9ba',
+    //   otherColor: 'rgba(18, 20, 23, 0.2)',
+    //   iconColor: '#ffc531',
+    //   titleColor: '#8a8a89',
+    //   sectionColor: '#f8f8f8',
+    //   greenColor: '#38cd3e',
+    //   descriptionColor: 'rgba(18, 20, 23, 0.8)',
+    //   primaryFontColor: '#121417',
+    //   accentColor: '#0b44cd',
+    whiteColor: '#FFFFFF',
+  },
   // fontFamily: {
   //   primaryFontFamily: 'Roboto',
   // },

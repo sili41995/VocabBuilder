@@ -6,10 +6,8 @@ import { List, ListItem } from './NavLinks.styled';
 const NavLinks: FC<IProps> = ({ navLinks }) => (
   <List>
     {navLinks.map(({ path, title }) => (
-      <ListItem>
-        <NavLink to={path} key={path}>
-          {title}
-        </NavLink>
+      <ListItem key={path}>
+        <NavLink to={path}>{title}</NavLink>
       </ListItem>
     ))}
   </List>

@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { IProps } from './Input.types';
-import { InputWrap, StyledInput } from './Input.styled';
+import { IProps } from './AuthFormInput.types';
+import { InputWrap, StyledInput } from './AuthFormInput.styled';
 
-const Input: FC<IProps> = ({ type, settings, placeholder, button }) => {
+const AuthFormInput: FC<IProps> = ({ type, settings, placeholder, button }) => {
   const input = (
     <StyledInput {...settings} type={type} placeholder={placeholder} />
   );
@@ -17,4 +17,4 @@ const Input: FC<IProps> = ({ type, settings, placeholder, button }) => {
   );
 };
 
-export default Input;
+export default AuthFormInput;

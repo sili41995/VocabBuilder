@@ -3,6 +3,7 @@ import { IState } from '@/types/types';
 const initialState: IState = {
   words: {
     items: [],
+    categories: [],
     totalPages: null,
     page: null,
     perPage: null,

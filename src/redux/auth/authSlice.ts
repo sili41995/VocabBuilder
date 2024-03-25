@@ -1,6 +1,7 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import initialState from '@/redux/initialState';
 import {
+  refreshUser,
   signIn,
   //   refreshUser,
   //   signInUser,
@@ -33,11 +34,11 @@ const authSlice = createSlice({
       //     email: initialState.auth.user.email,
       //   },
       // }))
-      // .addCase(refreshUser.pending, (state) => ({
-      //   ...state,
-      //   isLoading: true,
-      //   isRefreshing: true,
-      // }))
+      .addCase(refreshUser.pending, (state) => ({
+        ...state,
+        isLoading: true,
+        isRefreshing: true,
+      }))
       // .addCase(refreshUser.fulfilled, (state, { payload }) => ({
       //   ...state,
       //   isLoading: false,
@@ -61,42 +62,39 @@ const authSlice = createSlice({
       //   isLoading: false,
       //   isRefreshing: false,
       // }))
+
       .addMatcher(
-        isAnyOf(signUp.fulfilled, signIn.fulfilled),
+        isAnyOf(signUp.fulfilled, signIn.fulfilled, refreshUser.fulfilled),
         (state, { payload }) => ({
           ...state,
           user: { email: payload.email, name: payload.name },
           token: payload.token,
           isLoggedIn: true,
           isLoading: false,
-          error: null,
+          isRefreshing: false,
+          error: initialState.auth.error,
         })
       )
       .addMatcher(
         isAnyOf(
-          signUp.pending
-          // signInUser.pending,
+          signUp.pending,
+          signIn.pending
           // signOutUser.pending,
           // updateUserAvatar.pending
         ),
         (state) => ({
           ...state,
           isLoading: true,
-          error: null,
+          error: initialState.auth.error,
         })
       )
       .addMatcher(
-        isAnyOf(
-          signUp.rejected
-          // signInUser.rejected,
-          // signOutUser.rejected,
-          // refreshUser.rejected,
-          // updateUserAvatar.rejected
-        ),
+        isAnyOf(signUp.rejected, signIn.rejected, refreshUser.rejected),
         (state, { payload }) => ({
           ...state,
           isLoading: false,
-          error: payload ? payload : null,
+          isRefreshing: false,
+          error: payload as string,
         })
       );
   },

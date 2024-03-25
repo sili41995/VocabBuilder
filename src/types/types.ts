@@ -1,4 +1,6 @@
 import { PagePaths } from '@/constants';
+import { ChangeEvent, MouseEvent } from 'react';
+import { SetURLSearchParams } from 'react-router-dom';
 
 export interface IUserState {
   name: null | string;
@@ -19,10 +21,16 @@ export interface IWord {
   en: string;
   ua: string;
   category: string;
-  isIrregular: boolean;
+  isIrregular?: boolean;
+  owner?: string;
+  progress?: number;
 }
 
+export type NewWord = Pick<IWord, 'en' | 'ua' | 'category' | 'isIrregular'>;
+
 export type Words = IWord[];
+
+export type Filters = string[];
 
 export interface IWordsState {
   items: Words;
@@ -32,6 +40,7 @@ export interface IWordsState {
   isLoading: boolean;
   isLoaded: boolean;
   error: string | null;
+  categories: Filters;
 }
 
 export interface IState {
@@ -59,3 +68,27 @@ export interface INavLink {
 }
 
 export type NavLinks = Readonly<INavLink[]>;
+
+export interface ICurrentUser extends IAuthRes {
+  _id: string;
+}
+
+// export interface IFilter {
+//   word: string;
+//   category: string;
+// }
+
+export type ChangeEvt = ChangeEvent<HTMLInputElement>;
+
+export interface IUpdateSearchParamsProps {
+  key: string;
+  value: string;
+}
+
+export interface IUseSetSearchParams {
+  updateSearchParams: ({ key, value }: IUpdateSearchParamsProps) => void;
+  searchParams: URLSearchParams;
+  setSearchParams: SetURLSearchParams;
+}
+
+export type InputClick = MouseEvent<HTMLInputElement>;

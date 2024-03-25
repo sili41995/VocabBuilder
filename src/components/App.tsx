@@ -4,7 +4,7 @@ import PublicRoute from '@/components/PublicRoute';
 import Loader from '@/components/Loader';
 import SharedLayout from '@/components/SharedLayout';
 import { selectIsRefreshing, selectToken } from '@/redux/auth/selectors';
-// import { refreshUser } from '@/redux/auth/operations';
+import { refreshUser } from '@/redux/auth/operations';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { PagePaths } from '@/constants';
 import PrivateRoute from './PrivateRoute';
@@ -23,7 +23,7 @@ const App: FC = () => {
 
   useEffect(() => {
     if (token) {
-      // dispatch(refreshUser());
+      dispatch(refreshUser());
     }
   }, [dispatch, token]);
 

@@ -1,5 +1,12 @@
 import initialState from '@/redux/initialState';
-import { Credentials, IAuthRes, INewUser } from '@/types/types';
+import {
+  Credentials,
+  Filters,
+  IAuthRes,
+  ICurrentUser,
+  INewUser,
+  NewWord,
+} from '@/types/types';
 
 class WordsServiceApi {
   private BASE_URL = 'https://vocab-builder-backend.p.goit.global/api';
@@ -43,6 +50,64 @@ class WordsServiceApi {
     };
 
     return fetch(`${this.BASE_URL}/users/signin`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
+  refreshUser(): Promise<ICurrentUser> {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/users/current`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
+  fetchCategories(): Promise<Filters> {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/words/categories`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
+  createNewWord(data: NewWord): Promise<Filters> {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/words/create`, options)
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {

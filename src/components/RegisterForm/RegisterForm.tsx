@@ -1,6 +1,6 @@
 import { InputTypes, Messages, PagePaths, regExp } from '@/constants';
 import { FC, useEffect, useState } from 'react';
-import { LuEyeOff } from 'react-icons/lu';
+import { LuEye, LuEyeOff } from 'react-icons/lu';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { INewUser } from '@/types/types';
 import {
@@ -10,7 +10,7 @@ import {
   ShowPassBtn,
   Title,
 } from './RegisterForm.styled';
-import Input from '../Input';
+import AuthFormInput from '@/components/AuthFormInput';
 import { toasts } from '@/utils';
 import AuthFormControls from '../AuthFormControls';
 import { signUp } from '@/redux/auth/operations';
@@ -29,6 +29,11 @@ const RegisterForm: FC = () => {
     handleSubmit,
   } = useForm<INewUser>();
   const passInputType = showPassword ? InputTypes.text : InputTypes.password;
+  const showPassBtnIcon = showPassword ? (
+    <LuEye size={20} />
+  ) : (
+    <LuEyeOff size={20} />
+  );
 
   useEffect(() => {
     errors.name && toasts.errorToast(Messages.nameReqErr);
@@ -71,7 +76,7 @@ const RegisterForm: FC = () => {
       </Description>
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputsContainer>
-          <Input
+          <AuthFormInput
             type={InputTypes.text}
             settings={{
               ...register('name', {
@@ -80,7 +85,7 @@ const RegisterForm: FC = () => {
             }}
             placeholder='Name'
           />
-          <Input
+          <AuthFormInput
             type={InputTypes.email}
             settings={{
               ...register('email', {
@@ -90,7 +95,7 @@ const RegisterForm: FC = () => {
             }}
             placeholder='Email'
           />
-          <Input
+          <AuthFormInput
             type={passInputType}
             settings={{
               ...register('password', {
@@ -101,7 +106,7 @@ const RegisterForm: FC = () => {
             placeholder='Password'
             button={
               <ShowPassBtn type='button' onClick={onShowPassBtnClick}>
-                <LuEyeOff size={20} />
+                {showPassBtnIcon}
               </ShowPassBtn>
             }
           />
