@@ -19,7 +19,7 @@ const contactsSlice = createSlice({
       }))
       .addCase(fetchAllWords.fulfilled, (state, { payload }) => ({
         ...state,
-        items: [...state.items, ...payload.results],
+        items: payload.results,
         isLoading: false,
         error: initialState.words.error,
         page: payload.page,

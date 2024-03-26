@@ -99,3 +99,39 @@ export interface IWordsInfo {
   page: number;
   perPage: number;
 }
+
+export interface IFetchAllWordsProps {
+  signal: AbortSignal;
+  page: number;
+}
+
+export interface IGetWordsPaginationSettings {
+  isValidPage: boolean;
+  firstPage: number;
+  lastPage: number;
+  isBackNavBtnDisable: boolean;
+  isNextNavBtnDisable: boolean;
+  isShowNextTemplateBtn: boolean;
+  isShowLastPageBtn: boolean;
+  isShowFirstPageBtn: boolean;
+  isShowPrevTemplateBtn: boolean;
+}
+
+export interface IGetWordsPaginationSettingsProps {
+  pageNumbers: number[];
+  currentPage: number;
+  step: number;
+}
+
+export type BtnClickEvent = MouseEvent<HTMLButtonElement>;
+
+export interface IOnPageBtnClickProps {
+  e: BtnClickEvent;
+  page: number;
+}
+
+export interface ISetBtnDisplayProps {
+  currentPage: number | undefined;
+  page: number | undefined;
+  step: number | undefined;
+}

@@ -4,6 +4,7 @@ import {
   Filters,
   IAuthRes,
   ICurrentUser,
+  IFetchAllWordsProps,
   INewUser,
   IWord,
   IWordsInfo,
@@ -99,7 +100,7 @@ class WordsServiceApi {
       });
   }
 
-  fetchAllWords(signal: AbortSignal): Promise<IWordsInfo> {
+  fetchAllWords({ signal, page }: IFetchAllWordsProps): Promise<IWordsInfo> {
     const options = {
       signal,
       method: 'GET',
@@ -109,7 +110,7 @@ class WordsServiceApi {
       },
     };
 
-    return fetch(`${this.BASE_URL}/words/all`, options)
+    return fetch(`${this.BASE_URL}/words/all?page=${page}`, options)
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {

@@ -24,21 +24,21 @@ export const fetchCategories = createAsyncThunk<
 
 export const fetchAllWords = createAsyncThunk<
   IWordsInfo,
-  undefined,
+  number,
   {
     rejectValue: string;
   }
 >(
   'words/getAllWords',
   async (
-    _,
+    page,
     {
       rejectWithValue,
       signal,
     }: { rejectWithValue: Function; signal: AbortSignal }
   ) => {
     try {
-      const response = await wordsServiceApi.fetchAllWords(signal);
+      const response = await wordsServiceApi.fetchAllWords({ signal, page });
       return response;
     } catch (error) {
       if (error instanceof Error) {

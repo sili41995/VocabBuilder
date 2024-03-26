@@ -1,5 +1,15 @@
 export interface IProps {
-  page: number;
-  perPage: number;
+  currentPage: number;
   totalPages: number;
+  step?: number;
+}
+
+export interface IStyledProps {
+  currentPage?: number;
+  page?: number;
+  step?: number;
+}
+
+export interface IStyledBtnProps {
+  isActive?: boolean;
 }
