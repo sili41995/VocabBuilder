@@ -5,12 +5,8 @@ import WordsTable from '@/components/WordsTable';
 import { SearchParamsKeys } from '@/constants';
 import { useSetSearchParams } from '@/hooks';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { fetchAllWords } from '@/redux/words/operations';
-import {
-  selectPerPage,
-  selectTotalPages,
-  selectWords,
-} from '@/redux/words/selectors';
+import { getAllWords } from '@/redux/words/operations';
+import { selectTotalPages, selectWords } from '@/redux/words/selectors';
 import { FC, useEffect } from 'react';
 
 const RecommendPage: FC = () => {
@@ -18,12 +14,11 @@ const RecommendPage: FC = () => {
   const page = searchParams.get(SearchParamsKeys.page) ?? '1';
   const dispatch = useAppDispatch();
   const words = useAppSelector(selectWords);
-  const perPage = useAppSelector(selectPerPage);
   const totalPages = useAppSelector(selectTotalPages);
-  const shouldShowWordsPagination = page && perPage && totalPages;
+  const shouldShowWordsPagination = page && totalPages;
 
   useEffect(() => {
-    const promise = dispatch(fetchAllWords(Number(page)));
+    const promise = dispatch(getAllWords(Number(page)));
 
     return () => {
       promise.abort();

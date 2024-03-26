@@ -18,12 +18,12 @@ export const Row = styled.tr<IStyledProps>`
   display: flex;
 
   & > td {
-    flex-basis: ${({ isRecommendPage }) =>
+    width: ${({ isRecommendPage }) =>
       `calc((100%) / ${isRecommendPage ? 4 : 5})`};
   }
 
   & > th {
-    flex-basis: ${({ isRecommendPage }) =>
+    width: ${({ isRecommendPage }) =>
       `calc((100%) / ${isRecommendPage ? 4 : 5})`};
 
     &:first-of-type {
@@ -59,6 +59,7 @@ export const Title = styled.span``;
 export const Body = styled.tbody``;
 
 export const Data = styled.td`
+  position: relative;
   border-bottom: 1px solid rgb(219, 219, 219);
   background-color: #fcfcfc;
   padding: 22px;
@@ -71,4 +72,35 @@ export const Data = styled.td`
   &:not(:last-of-type) {
     border-right: 1px solid rgb(219, 219, 219);
   }
+
+  &:last-of-type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+export const ProgressWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
+export const Progress = styled.p`
+  color: #121417;
+  font-family: MacPaw Fixel Display;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.36;
+`;
+
+export const ActionsBtn = styled.button`
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: #121417;
+  font-family: MacPaw Fixel Display;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.36;
 `;

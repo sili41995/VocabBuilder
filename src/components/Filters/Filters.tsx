@@ -12,7 +12,7 @@ import FilterItem from '@/components/FilterItem';
 import { SearchParamsKeys } from '@/constants';
 import { useSetSearchParams } from '@/hooks';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { fetchCategories } from '@/redux/words/operations';
+import { getCategories } from '@/redux/words/operations';
 import { selectCategories } from '@/redux/words/selectors';
 
 const Filters: FC = () => {
@@ -22,7 +22,7 @@ const Filters: FC = () => {
   const categories = useAppSelector(selectCategories);
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(getCategories());
   }, [dispatch]);
 
   const onChangeWordInput = debounce((e: ChangeEvt) => {

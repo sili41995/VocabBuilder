@@ -1,17 +1,37 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { IProps } from './WordsTableItem.types';
 import ProgressIndicator from '../ProgressIndicator';
 import AddToDictionaryBtn from '../AddToDictionaryBtn';
-import { Data, Row } from '../WordsTable/WordsTable.styled';
+import {
+  ActionsBtn,
+  Data,
+  Progress,
+  ProgressWrap,
+  Row,
+} from '../WordsTable/WordsTable.styled';
 import { useAppDispatch } from '@/hooks/redux';
-import { addToDictionary } from '@/redux/words/operations';
+import { addToDictionary, deleteWord } from '@/redux/words/operations';
+import ActionsMenu from '../ActionsMenu';
 
 const WordsTableItem: FC<IProps> = ({ word, isRecommendPage }) => {
+  const [showEditWordWin, setShowEditWordWin] = useState<boolean>(false);
   const { category, en, ua, progress, _id } = word;
   const dispatch = useAppDispatch();
 
   const onAddToDictionaryBtnClick = () => {
     dispatch(addToDictionary(_id));
+  };
+
+  const setShowEditWordWinState = () => {
+    setShowEditWordWin((prevState) => !prevState);
+  };
+
+  const onActionsBtnClick = () => {
+    setShowEditWordWinState();
+  };
+
+  const onDeleteBtnClick = () => {
+    dispatch(deleteWord(_id));
   };
 
   return (
@@ -23,9 +43,22 @@ const WordsTableItem: FC<IProps> = ({ word, isRecommendPage }) => {
         {isRecommendPage ? (
           <AddToDictionaryBtn onClick={onAddToDictionaryBtnClick} />
         ) : (
-          <ProgressIndicator progress={progress} />
+          <ProgressWrap>
+            <Progress>{`${progress}%`}</Progress>
+            <ProgressIndicator progress={progress} />
+          </ProgressWrap>
         )}
       </Data>
+      {!isRecommendPage && (
+        <Data>
+          <ActionsBtn type='button' onClick={onActionsBtnClick}>
+            ...
+          </ActionsBtn>
+          {showEditWordWin && (
+            <ActionsMenu onDeleteBtnClick={onDeleteBtnClick} />
+          )}
+        </Data>
+      )}
     </Row>
   );
 };

@@ -1,8 +1,14 @@
 import wordsServiceApi from '@/service/wordsServiceApi';
-import { Filters, IWord, IWordsInfo, NewWord } from '@/types/types';
+import {
+  Filters,
+  IDeleteWord,
+  IWord,
+  IWordsInfo,
+  NewWord,
+} from '@/types/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchCategories = createAsyncThunk<
+export const getCategories = createAsyncThunk<
   Filters,
   undefined,
   {
@@ -22,7 +28,7 @@ export const fetchCategories = createAsyncThunk<
   }
 );
 
-export const fetchAllWords = createAsyncThunk<
+export const getAllWords = createAsyncThunk<
   IWordsInfo,
   number,
   {
@@ -39,6 +45,32 @@ export const fetchAllWords = createAsyncThunk<
   ) => {
     try {
       const response = await wordsServiceApi.fetchAllWords({ signal, page });
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const getOwnWords = createAsyncThunk<
+  IWordsInfo,
+  number,
+  {
+    rejectValue: string;
+  }
+>(
+  'words/getOwnWords',
+  async (
+    page,
+    {
+      rejectWithValue,
+      signal,
+    }: { rejectWithValue: Function; signal: AbortSignal }
+  ) => {
+    try {
+      const response = await wordsServiceApi.fetchOwnWords({ signal, page });
       return response;
     } catch (error) {
       if (error instanceof Error) {
@@ -79,6 +111,26 @@ export const addToDictionary = createAsyncThunk<
   async (id, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
       const response = await wordsServiceApi.addToDictionary(id);
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const deleteWord = createAsyncThunk<
+  IDeleteWord,
+  string,
+  {
+    rejectValue: string;
+  }
+>(
+  'words/deleteWord',
+  async (id, { rejectWithValue }: { rejectWithValue: Function }) => {
+    try {
+      const response = await wordsServiceApi.deleteWord(id);
       return response;
     } catch (error) {
       if (error instanceof Error) {

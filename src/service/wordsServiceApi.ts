@@ -4,6 +4,7 @@ import {
   Filters,
   IAuthRes,
   ICurrentUser,
+  IDeleteWord,
   IFetchAllWordsProps,
   INewUser,
   IWord,
@@ -120,6 +121,26 @@ class WordsServiceApi {
       });
   }
 
+  fetchOwnWords({ signal, page }: IFetchAllWordsProps): Promise<IWordsInfo> {
+    const options = {
+      signal,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/words/own?page=${page}`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
   createNewWord(data: NewWord): Promise<Filters> {
     const options = {
       method: 'POST',
@@ -153,6 +174,25 @@ class WordsServiceApi {
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
+  deleteWord(id: string): Promise<IDeleteWord> {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/words/delete/${id}`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data.id) {
           throw Error(data.message);
         }
         return data;

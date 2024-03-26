@@ -135,3 +135,8 @@ export interface ISetBtnDisplayProps {
   page: number | undefined;
   step: number | undefined;
 }
+
+export interface IDeleteWord {
+  message: string;
+  id: string;
+}
