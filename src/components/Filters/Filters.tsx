@@ -5,6 +5,10 @@ import {
   Container,
   InputWrap,
   InputsContainer,
+  RadioBtn,
+  RadioBtnContainer,
+  RadioBtnTitle,
+  RadioBtnWrap,
   SearchField,
 } from './Filters.styled';
 import { GoSearch } from 'react-icons/go';
@@ -20,6 +24,7 @@ const Filters: FC = () => {
   const category = searchParams.get(SearchParamsKeys.category) ?? '';
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectCategories);
+  const isVerbCategory = category.toLowerCase() === 'verb';
 
   useEffect(() => {
     dispatch(getCategories());
@@ -30,6 +35,11 @@ const Filters: FC = () => {
 
     updateSearchParams({ key: name, value: value.trim() });
   }, 1000);
+
+  useEffect(() => {
+    !isVerbCategory &&
+      updateSearchParams({ key: SearchParamsKeys.isIrregular, value: '' });
+  }, [isVerbCategory]);
 
   return (
     <Container>
@@ -50,6 +60,28 @@ const Filters: FC = () => {
           filters={categories}
         />
       </InputsContainer>
+      {isVerbCategory && (
+        <RadioBtnContainer>
+          <RadioBtnWrap>
+            <RadioBtn
+              name={SearchParamsKeys.isIrregular}
+              type='radio'
+              onChange={onChangeWordInput}
+              value='false'
+            />
+            <RadioBtnTitle>Regular</RadioBtnTitle>
+          </RadioBtnWrap>
+          <RadioBtnWrap>
+            <RadioBtn
+              name={SearchParamsKeys.isIrregular}
+              type='radio'
+              onChange={onChangeWordInput}
+              value='true'
+            />
+            <RadioBtnTitle>Irregular</RadioBtnTitle>
+          </RadioBtnWrap>
+        </RadioBtnContainer>
+      )}
     </Container>
   );
 };

@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing(2)};
+`;
 
 export const InputsContainer = styled.div`
   display: flex;
@@ -36,4 +40,30 @@ export const SearchField = styled.input`
   &::placeholder {
     color: currentColor;
   }
+`;
+
+export const RadioBtnContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing(4)};
+  margin-top: ${({ theme }) => theme.spacing(2)};
+`;
+
+export const RadioBtnWrap = styled.label`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing(2)};
+`;
+
+export const RadioBtn = styled.input`
+  width: 24px;
+  height: 24px;
+`;
+
+export const RadioBtnTitle = styled.span`
+  color: #121417;
+  font-family: MacPaw Fixel Display;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.36;
 `;

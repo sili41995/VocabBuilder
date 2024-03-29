@@ -161,5 +161,6 @@ export interface IGetWordsProps {
   page: number;
   keyword: string;
   category: string;
+  isIrregular: string;
   signal?: AbortSignal;
 }

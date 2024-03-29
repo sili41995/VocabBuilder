@@ -19,6 +19,7 @@ const DictionaryPage: FC = () => {
   const category = searchParams.get(SearchParamsKeys.category) ?? '';
   const dispatch = useAppDispatch();
   const shouldShowWordsPagination = page && totalPages;
+  const isIrregular = searchParams.get(SearchParamsKeys.isIrregular) ?? '';
 
   useEffect(() => {
     const promise = dispatch(
@@ -26,13 +27,14 @@ const DictionaryPage: FC = () => {
         page: Number(page),
         keyword,
         category,
+        isIrregular,
       })
     );
 
     return () => {
       promise.abort();
     };
-  }, [dispatch, keyword, page, category]);
+  }, [dispatch, keyword, page, category, isIrregular]);
 
   return (
     <MainSection>

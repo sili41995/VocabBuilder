@@ -155,6 +155,7 @@ class WordsServiceApi {
     page,
     keyword,
     category,
+    isIrregular,
   }: IGetWordsProps): Promise<IWordsInfo> {
     const options = {
       signal,
@@ -166,7 +167,7 @@ class WordsServiceApi {
     };
 
     return fetch(
-      `${this.BASE_URL}/words/own?page=${page}&keyword=${keyword}&category=${category}`,
+      `${this.BASE_URL}/words/own?page=${page}&keyword=${keyword}&category=${category}&isIrregular=${isIrregular}`,
       options
     )
       .then((response) => response.json())
