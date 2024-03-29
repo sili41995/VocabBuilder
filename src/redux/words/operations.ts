@@ -2,6 +2,8 @@ import wordsServiceApi from '@/service/wordsServiceApi';
 import {
   Filters,
   IDeleteWord,
+  IGetWordsProps,
+  IStatistics,
   IUpdateWord,
   IWord,
   IWordsInfo,
@@ -57,21 +59,21 @@ export const getAllWords = createAsyncThunk<
 
 export const getOwnWords = createAsyncThunk<
   IWordsInfo,
-  number,
+  IGetWordsProps,
   {
     rejectValue: string;
   }
 >(
   'words/getOwnWords',
   async (
-    page,
+    data,
     {
       rejectWithValue,
       signal,
     }: { rejectWithValue: Function; signal: AbortSignal }
   ) => {
     try {
-      const response = await wordsServiceApi.fetchOwnWords({ signal, page });
+      const response = await wordsServiceApi.fetchOwnWords({ signal, ...data });
       return response;
     } catch (error) {
       if (error instanceof Error) {
@@ -152,6 +154,26 @@ export const updateWord = createAsyncThunk<
   async (data, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
       const response = await wordsServiceApi.updateWord(data);
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const getStatistics = createAsyncThunk<
+  IStatistics,
+  undefined,
+  {
+    rejectValue: string;
+  }
+>(
+  'words/getStatistics',
+  async (_, { rejectWithValue }: { rejectWithValue: Function }) => {
+    try {
+      const response = await wordsServiceApi.fetchStatistics();
       return response;
     } catch (error) {
       if (error instanceof Error) {

@@ -1,5 +1,6 @@
 const enum SearchParamsKeys {
   category = 'category',
+  keyword = 'keyword',
   page = 'page',
 }
 

@@ -1,15 +1,15 @@
 import { FC } from 'react';
 import { Count, Text, Title } from './Statistics.styled';
 import { useAppSelector } from '@/hooks/redux';
-import { selectWords } from '@/redux/words/selectors';
+import { selectStatistics } from '@/redux/words/selectors';
 
 const Statistics: FC = () => {
-  const wordsCount = useAppSelector(selectWords).length;
+  const statistics = useAppSelector(selectStatistics);
 
   return (
     <Text>
       <Title>To study:</Title>
-      <Count>{wordsCount}</Count>
+      <Count>{statistics}</Count>
     </Text>
   );
 };

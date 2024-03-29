@@ -9,3 +9,5 @@ export const selectPage = (state: IState) => state.words.page;
 export const selectPerPage = (state: IState) => state.words.perPage;
 
 export const selectTotalPages = (state: IState) => state.words.totalPages;
+
+export const selectStatistics = (state: IState) => state.words.statistics;

@@ -37,6 +37,7 @@ const Filters: FC = () => {
         <InputWrap>
           <SearchField
             type='text'
+            name={SearchParamsKeys.keyword}
             placeholder='Find the word'
             onChange={onChangeWordInput}
           />

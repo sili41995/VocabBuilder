@@ -6,7 +6,10 @@ import {
   ICurrentUser,
   IDeleteWord,
   IFetchAllWordsProps,
+  IGetWordsProps,
   INewUser,
+  ISignOut,
+  IStatistics,
   IUpdateWord,
   IWord,
   IWordsInfo,
@@ -40,6 +43,7 @@ class WordsServiceApi {
         if (data.message) {
           throw Error(data.message);
         }
+
         return data;
       });
   }
@@ -60,6 +64,28 @@ class WordsServiceApi {
         if (data.message) {
           throw Error(data.message);
         }
+
+        return data;
+      });
+  }
+
+  signOut(): Promise<ISignOut> {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/users/signout`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        const isError = data.message !== 'Sign out success';
+        if (isError) {
+          throw Error(data.message);
+        }
+
         return data;
       });
   }
@@ -98,6 +124,7 @@ class WordsServiceApi {
         if (data.message) {
           throw Error(data.message);
         }
+
         return data;
       });
   }
@@ -118,11 +145,17 @@ class WordsServiceApi {
         if (data.message) {
           throw Error(data.message);
         }
+
         return data;
       });
   }
 
-  fetchOwnWords({ signal, page }: IFetchAllWordsProps): Promise<IWordsInfo> {
+  fetchOwnWords({
+    signal,
+    page,
+    keyword,
+    category,
+  }: IGetWordsProps): Promise<IWordsInfo> {
     const options = {
       signal,
       method: 'GET',
@@ -132,12 +165,16 @@ class WordsServiceApi {
       },
     };
 
-    return fetch(`${this.BASE_URL}/words/own?page=${page}`, options)
+    return fetch(
+      `${this.BASE_URL}/words/own?page=${page}&keyword=${keyword}&category=${category}`,
+      options
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
           throw Error(data.message);
         }
+
         return data;
       });
   }
@@ -158,6 +195,7 @@ class WordsServiceApi {
         if (data.message) {
           throw Error(data.message);
         }
+
         return data;
       });
   }
@@ -177,6 +215,7 @@ class WordsServiceApi {
         if (data.message) {
           throw Error(data.message);
         }
+
         return data;
       });
   }
@@ -196,6 +235,7 @@ class WordsServiceApi {
         if (!data.id) {
           throw Error(data.message);
         }
+
         return data;
       });
   }
@@ -211,6 +251,25 @@ class WordsServiceApi {
     };
 
     return fetch(`${this.BASE_URL}/words/edit/${id}`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
+  fetchStatistics(): Promise<IStatistics> {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/words/statistics`, options)
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {

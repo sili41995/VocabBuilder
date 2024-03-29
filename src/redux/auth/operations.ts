@@ -4,9 +4,11 @@ import {
   IAuthRes,
   ICurrentUser,
   INewUser,
+  ISignOut,
   IState,
 } from '@/types/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import initialState from '../initialState';
 
 export const signUp = createAsyncThunk<
   IAuthRes,
@@ -75,6 +77,28 @@ export const refreshUser = createAsyncThunk<
     try {
       wordsServiceApi.token = token;
       const response = await wordsServiceApi.refreshUser();
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const signOut = createAsyncThunk<
+  ISignOut,
+  undefined,
+  { rejectValue: string }
+>(
+  'auth/signOut',
+  async (
+    _,
+    { rejectWithValue }: { rejectWithValue: Function; signal: AbortSignal }
+  ) => {
+    try {
+      const response = await wordsServiceApi.signOut();
+      wordsServiceApi.token = initialState.auth.token;
       return response;
     } catch (error) {
       if (error instanceof Error) {

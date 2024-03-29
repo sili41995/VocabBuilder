@@ -15,16 +15,24 @@ const DictionaryPage: FC = () => {
   const totalPages = useAppSelector(selectTotalPages);
   // const perPage = useAppSelector(selectPerPage);
   const page = searchParams.get(SearchParamsKeys.page) ?? '1';
+  const keyword = searchParams.get(SearchParamsKeys.keyword) ?? '';
+  const category = searchParams.get(SearchParamsKeys.category) ?? '';
   const dispatch = useAppDispatch();
   const shouldShowWordsPagination = page && totalPages;
 
   useEffect(() => {
-    const promise = dispatch(getOwnWords(Number(page)));
+    const promise = dispatch(
+      getOwnWords({
+        page: Number(page),
+        keyword,
+        category,
+      })
+    );
 
     return () => {
       promise.abort();
     };
-  }, [dispatch, page]);
+  }, [dispatch, keyword, page, category]);
 
   return (
     <MainSection>

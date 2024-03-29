@@ -3,6 +3,7 @@ import initialState from '@/redux/initialState';
 import {
   refreshUser,
   signIn,
+  signOut,
   //   refreshUser,
   //   signInUser,
   //   signOutUser,
@@ -19,50 +20,14 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-
-      // .addCase(signInUser.fulfilled, (state, { payload }) => ({
-      //   ...state,
-      //   isLoading: false,
-      //   user: { ...payload.user },
-      //   token: payload.token,
-      //   isLoggedIn: true,
-      // }))
-      // .addCase(signOutUser.fulfilled, (state) => ({
-      //   ...initialState.auth,
-      //   user: {
-      //     ...state.user,
-      //     email: initialState.auth.user.email,
-      //   },
-      // }))
+      .addCase(signOut.fulfilled, () => ({
+        ...initialState.auth,
+      }))
       .addCase(refreshUser.pending, (state) => ({
         ...state,
         isLoading: true,
         isRefreshing: true,
       }))
-      // .addCase(refreshUser.fulfilled, (state, { payload }) => ({
-      //   ...state,
-      //   isLoading: false,
-      //   user: {
-      //     name: payload.name,
-      //     email: payload.email,
-      //     avatar: payload.avatar,
-      //   },
-      //   isLoggedIn: true,
-      //   isRefreshing: false,
-      // }))
-      // .addCase(updateUserAvatar.fulfilled, (state, { payload }) => ({
-      //   ...state,
-      //   user: {
-      //     ...state.user,
-      //     avatar: payload.avatar as string,
-      //   },
-      // }))
-      // .addCase(refreshUser.rejected, (state) => ({
-      //   ...state,
-      //   isLoading: false,
-      //   isRefreshing: false,
-      // }))
-
       .addMatcher(
         isAnyOf(signUp.fulfilled, signIn.fulfilled, refreshUser.fulfilled),
         (state, { payload }) => ({
@@ -76,12 +41,7 @@ const authSlice = createSlice({
         })
       )
       .addMatcher(
-        isAnyOf(
-          signUp.pending,
-          signIn.pending
-          // signOutUser.pending,
-          // updateUserAvatar.pending
-        ),
+        isAnyOf(signUp.pending, signIn.pending, signOut.pending),
         (state) => ({
           ...state,
           isLoading: true,
@@ -89,7 +49,12 @@ const authSlice = createSlice({
         })
       )
       .addMatcher(
-        isAnyOf(signUp.rejected, signIn.rejected, refreshUser.rejected),
+        isAnyOf(
+          signUp.rejected,
+          signIn.rejected,
+          refreshUser.rejected,
+          signOut.rejected
+        ),
         (state, { payload }) => ({
           ...state,
           isLoading: false,

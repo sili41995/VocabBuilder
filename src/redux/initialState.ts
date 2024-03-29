@@ -10,6 +10,7 @@ const initialState: IState = {
     isLoading: false,
     isLoaded: false,
     error: null,
+    statistics: null,
   },
   auth: {
     user: {

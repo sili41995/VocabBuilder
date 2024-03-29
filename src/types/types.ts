@@ -43,6 +43,7 @@ export interface IWordsState {
   isLoaded: boolean;
   error: string | null;
   categories: Filters;
+  statistics: number | null;
 }
 
 export interface IState {
@@ -146,4 +147,19 @@ export interface IDeleteWord {
 export interface IUpdateWord {
   data: Pick<IWord, 'en' | 'ua' | 'category' | 'isIrregular'>;
   id: string;
+}
+
+export interface IStatistics {
+  totalCount: number;
+}
+
+export interface ISignOut {
+  message: string;
+}
+
+export interface IGetWordsProps {
+  page: number;
+  keyword: string;
+  category: string;
+  signal?: AbortSignal;
 }

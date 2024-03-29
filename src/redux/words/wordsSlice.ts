@@ -8,7 +8,9 @@ import {
   getOwnWords,
   deleteWord,
   updateWord,
+  getStatistics,
 } from './operations';
+import { signOut } from '../auth/operations';
 
 const contactsState: IWordsState = initialState.words;
 
@@ -63,13 +65,23 @@ const contactsSlice = createSlice({
         isLoading: false,
         error: initialState.words.error,
       }))
+      .addCase(getStatistics.fulfilled, (state, { payload }) => ({
+        ...state,
+        statistics: payload.totalCount,
+        isLoading: false,
+        error: initialState.words.error,
+      }))
+      .addCase(signOut.fulfilled, () => ({
+        ...initialState.words,
+      }))
       .addMatcher(
         isAnyOf(
           getCategories.pending,
           getAllWords.pending,
           getOwnWords.pending,
           createNewWord.pending,
-          deleteWord.pending
+          deleteWord.pending,
+          getStatistics.pending
         ),
         (state) => ({
           ...state,
@@ -82,7 +94,8 @@ const contactsSlice = createSlice({
           getAllWords.rejected,
           getOwnWords.rejected,
           createNewWord.rejected,
-          deleteWord.rejected
+          deleteWord.rejected,
+          getStatistics.rejected
         ),
         (state, { payload }) => ({
           ...state,
