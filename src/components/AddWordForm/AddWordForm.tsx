@@ -6,7 +6,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Ukraine from '@/icons/Ukraine.svg?react';
 import {
   BtnList,
-  CancelBtn,
   Form,
   Input,
   InputContainer,
@@ -22,7 +21,6 @@ import {
   RadioBtnWrap,
   Select,
   SelectWrap,
-  SubmitBtn,
   Text,
   Title,
 } from './AddWordForm.styled';
@@ -31,6 +29,8 @@ import UK from '@/icons/uk.svg?react';
 import { IProps } from './AddWordForm.types';
 import { toasts } from '@/utils';
 import { createNewWord } from '@/redux/words/operations';
+import SubmitBtn from '../SubmitBtn';
+import CancelBtn from '../CancelBtn';
 
 const AddWordForm: FC<IProps> = ({ setModalWinState }) => {
   const uaId = useId();
@@ -139,12 +139,10 @@ const AddWordForm: FC<IProps> = ({ setModalWinState }) => {
         </InputContainer>
         <BtnList>
           <ListItem>
-            <SubmitBtn type='submit'>Add</SubmitBtn>
+            <SubmitBtn title='Add' />
           </ListItem>
           <ListItem>
-            <CancelBtn type='button' onClick={setModalWinState}>
-              Cancel
-            </CancelBtn>
+            <CancelBtn onClick={setModalWinState} title='Cancel' />
           </ListItem>
         </BtnList>
       </Form>

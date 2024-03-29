@@ -28,6 +28,8 @@ export interface IWord {
 
 export type NewWord = Pick<IWord, 'en' | 'ua' | 'category' | 'isIrregular'>;
 
+export type UpdatedWord = Pick<IWord, 'en' | 'ua'>;
+
 export type Words = IWord[];
 
 export type Filters = string[];
@@ -138,5 +140,10 @@ export interface ISetBtnDisplayProps {
 
 export interface IDeleteWord {
   message: string;
+  id: string;
+}
+
+export interface IUpdateWord {
+  data: Pick<IWord, 'en' | 'ua' | 'category' | 'isIrregular'>;
   id: string;
 }

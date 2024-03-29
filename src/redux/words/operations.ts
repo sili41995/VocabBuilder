@@ -2,6 +2,7 @@ import wordsServiceApi from '@/service/wordsServiceApi';
 import {
   Filters,
   IDeleteWord,
+  IUpdateWord,
   IWord,
   IWordsInfo,
   NewWord,
@@ -131,6 +132,26 @@ export const deleteWord = createAsyncThunk<
   async (id, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
       const response = await wordsServiceApi.deleteWord(id);
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const updateWord = createAsyncThunk<
+  IWord,
+  IUpdateWord,
+  {
+    rejectValue: string;
+  }
+>(
+  'words/updateWord',
+  async (data, { rejectWithValue }: { rejectWithValue: Function }) => {
+    try {
+      const response = await wordsServiceApi.updateWord(data);
       return response;
     } catch (error) {
       if (error instanceof Error) {

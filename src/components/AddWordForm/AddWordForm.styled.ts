@@ -124,30 +124,3 @@ export const BtnList = styled.ul`
 `;
 
 export const ListItem = styled.li``;
-
-export const SubmitBtn = styled.button`
-  min-width: 245px;
-  padding: 14px;
-  border-radius: 30px;
-  border: none;
-  background-color: #fcfcfc;
-  color: #121417;
-  font-family: MacPaw Fixel Display;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.56;
-`;
-
-export const CancelBtn = styled.button`
-  min-width: 245px;
-  padding: 14px;
-  border: none;
-  outline: 1px solid rgba(252, 252, 252, 0.4);
-  border-radius: 30px;
-  background-color: transparent;
-  color: #fcfcfc;
-  font-family: MacPaw Fixel Display;
-  font-size: 1.56;
-  font-weight: 700;
-  line-height: 28px;
-`;

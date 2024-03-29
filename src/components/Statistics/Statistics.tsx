@@ -5,6 +5,7 @@ import { selectWords } from '@/redux/words/selectors';
 
 const Statistics: FC = () => {
   const wordsCount = useAppSelector(selectWords).length;
+
   return (
     <Text>
       <Title>To study:</Title>

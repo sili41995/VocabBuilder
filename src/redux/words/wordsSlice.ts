@@ -7,6 +7,7 @@ import {
   getAllWords,
   getOwnWords,
   deleteWord,
+  updateWord,
 } from './operations';
 
 const contactsState: IWordsState = initialState.words;
@@ -50,6 +51,15 @@ const contactsSlice = createSlice({
       .addCase(deleteWord.fulfilled, (state, { payload }) => ({
         ...state,
         items: state.items.filter(({ _id }) => _id !== payload.id),
+        isLoading: false,
+        error: initialState.words.error,
+      }))
+      .addCase(updateWord.fulfilled, (state, { payload }) => ({
+        ...state,
+        items: [
+          ...state.items.filter(({ _id }) => _id !== payload._id),
+          payload,
+        ],
         isLoading: false,
         error: initialState.words.error,
       }))

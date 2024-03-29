@@ -7,6 +7,7 @@ import {
   IDeleteWord,
   IFetchAllWordsProps,
   INewUser,
+  IUpdateWord,
   IWord,
   IWordsInfo,
   NewWord,
@@ -141,7 +142,7 @@ class WordsServiceApi {
       });
   }
 
-  createNewWord(data: NewWord): Promise<Filters> {
+  createNewWord(data: NewWord): Promise<IWord> {
     const options = {
       method: 'POST',
       body: JSON.stringify(data),
@@ -193,6 +194,26 @@ class WordsServiceApi {
       .then((response) => response.json())
       .then((data) => {
         if (!data.id) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
+  updateWord({ data, id }: IUpdateWord): Promise<Filters> {
+    const options = {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/words/edit/${id}`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
           throw Error(data.message);
         }
         return data;

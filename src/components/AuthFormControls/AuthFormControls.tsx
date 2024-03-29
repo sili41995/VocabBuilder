@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import SubmitFormBtn from '@/components/SubmitFormBtn';
+import SubmitAuthFormBtn from '@/components/SubmitAuthFormBtn';
 import { Link } from 'react-router-dom';
 import { IProps } from './AuthFormControls.types';
 import { Container } from './AuthFormControls.styled';
@@ -12,7 +12,7 @@ const AuthFormControls: FC<IProps> = ({
 }) => {
   return (
     <Container>
-      <SubmitFormBtn title={submitBtnTitle} disabled={submitBtnDisabled} />
+      <SubmitAuthFormBtn title={submitBtnTitle} disabled={submitBtnDisabled} />
       <Link to={navLinkPath}>{navLinkTitle}</Link>
     </Container>
   );
