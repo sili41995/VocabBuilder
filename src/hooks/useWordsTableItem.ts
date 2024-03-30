@@ -1,8 +1,4 @@
-import {
-  addToDictionary,
-  deleteWord,
-  getStatistics,
-} from '@/redux/words/operations';
+import { addToDictionary, deleteWord } from '@/redux/words/operations';
 import { useAppDispatch } from './redux';
 import { useState } from 'react';
 
@@ -28,11 +24,7 @@ const useWordsTableItem = (id: string) => {
   };
 
   const onDeleteBtnClick = () => {
-    dispatch(deleteWord(id))
-      .unwrap()
-      .then(() => {
-        dispatch(getStatistics());
-      });
+    dispatch(deleteWord(id));
   };
 
   const onEditBtnClick = () => {

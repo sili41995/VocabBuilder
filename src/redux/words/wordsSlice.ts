@@ -9,6 +9,7 @@ import {
   deleteWord,
   updateWord,
   getStatistics,
+  getTasks,
 } from './operations';
 import { signOut } from '../auth/operations';
 
@@ -49,12 +50,14 @@ const contactsSlice = createSlice({
         items: [...state.items, payload],
         isLoading: false,
         error: initialState.words.error,
+        statistics: state.statistics && state.statistics + 1,
       }))
       .addCase(deleteWord.fulfilled, (state, { payload }) => ({
         ...state,
         items: state.items.filter(({ _id }) => _id !== payload.id),
         isLoading: false,
         error: initialState.words.error,
+        statistics: state.statistics && state.statistics - 1,
       }))
       .addCase(updateWord.fulfilled, (state, { payload }) => ({
         ...state,
@@ -71,6 +74,12 @@ const contactsSlice = createSlice({
         isLoading: false,
         error: initialState.words.error,
       }))
+      .addCase(getTasks.fulfilled, (state, { payload }) => ({
+        ...state,
+        tasks: payload.tasks,
+        isLoading: false,
+        error: initialState.words.error,
+      }))
       .addCase(signOut.fulfilled, () => ({
         ...initialState.words,
       }))
@@ -81,7 +90,8 @@ const contactsSlice = createSlice({
           getOwnWords.pending,
           createNewWord.pending,
           deleteWord.pending,
-          getStatistics.pending
+          getStatistics.pending,
+          getTasks.pending
         ),
         (state) => ({
           ...state,
@@ -95,7 +105,8 @@ const contactsSlice = createSlice({
           getOwnWords.rejected,
           createNewWord.rejected,
           deleteWord.rejected,
-          getStatistics.rejected
+          getStatistics.rejected,
+          getTasks.rejected
         ),
         (state, { payload }) => ({
           ...state,

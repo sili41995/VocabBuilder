@@ -4,6 +4,7 @@ const initialState: IState = {
   words: {
     items: [],
     categories: [],
+    tasks: [],
     totalPages: null,
     page: null,
     perPage: null,

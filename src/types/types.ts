@@ -26,6 +26,19 @@ export interface IWord {
   progress?: number;
 }
 
+export interface Task {
+  _id: string;
+  task: 'en' | 'ua';
+  en?: string;
+  ua?: string;
+}
+
+export type Tasks = Task[];
+
+export interface ITasks {
+  tasks: Tasks;
+}
+
 export type NewWord = Pick<IWord, 'en' | 'ua' | 'category' | 'isIrregular'>;
 
 export type UpdatedWord = Pick<IWord, 'en' | 'ua'>;
@@ -36,6 +49,7 @@ export type Filters = string[];
 
 export interface IWordsState {
   items: Words;
+  tasks: Tasks;
   totalPages: number | null;
   page: number | null;
   perPage: number | null;

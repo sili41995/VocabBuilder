@@ -10,6 +10,7 @@ import {
   INewUser,
   ISignOut,
   IStatistics,
+  ITasks,
   IUpdateWord,
   IWord,
   IWordsInfo,
@@ -271,6 +272,25 @@ class WordsServiceApi {
     };
 
     return fetch(`${this.BASE_URL}/words/statistics`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
+  fetchTasks(): Promise<ITasks> {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/words/tasks`, options)
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
