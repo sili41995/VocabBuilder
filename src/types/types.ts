@@ -26,14 +26,33 @@ export interface IWord {
   progress?: number;
 }
 
-export interface Task {
+export interface IAnswer {
+  _id: string;
+  task: 'en' | 'ua';
+  en: string | null;
+  ua: string | null;
+}
+
+export interface IAnswerRes {
+  _id: string;
+  ua: string;
+  task: 'en' | 'ua';
+  en: string;
+  isDone: boolean;
+}
+
+export type AnswersRes = IAnswerRes[];
+
+export type Answers = IAnswer[];
+
+export interface ITask {
   _id: string;
   task: 'en' | 'ua';
   en?: string;
   ua?: string;
 }
 
-export type Tasks = Task[];
+export type Tasks = ITask[];
 
 export interface ITasks {
   tasks: Tasks;

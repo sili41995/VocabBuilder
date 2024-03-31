@@ -3,6 +3,7 @@ import { selectCategories } from '@/redux/words/selectors';
 import { NewWord } from '@/types/types';
 import { FC, useEffect, useId } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import UK from '@/icons/uk.svg?react';
 import Ukraine from '@/icons/Ukraine.svg?react';
 import {
   BtnList,
@@ -25,7 +26,6 @@ import {
   Title,
 } from './AddWordForm.styled';
 import { Messages, regExp } from '@/constants';
-import UK from '@/icons/uk.svg?react';
 import { IProps } from './AddWordForm.types';
 import { toasts } from '@/utils';
 import { createNewWord } from '@/redux/words/operations';

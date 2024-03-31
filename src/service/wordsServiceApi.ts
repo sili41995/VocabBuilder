@@ -1,5 +1,6 @@
 import initialState from '@/redux/initialState';
 import {
+  Answers,
   Credentials,
   Filters,
   IAuthRes,
@@ -291,6 +292,26 @@ class WordsServiceApi {
     };
 
     return fetch(`${this.BASE_URL}/words/tasks`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          throw Error(data.message);
+        }
+        return data;
+      });
+  }
+
+  sendAnswers(answers: Answers): Promise<ITasks> {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(answers),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.TOKEN}`,
+      },
+    };
+
+    return fetch(`${this.BASE_URL}/words/answers`, options)
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {

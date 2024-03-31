@@ -1,3 +1,5 @@
+import EmptyTasksListMessage from '@/components/EmptyTasksListMessage';
+import MainSection from '@/components/MainSection';
 import TasksForm from '@/components/TasksForm';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { getTasks } from '@/redux/words/operations';
@@ -17,7 +19,11 @@ const TrainingPage: FC = () => {
     };
   }, [dispatch]);
 
-  return showTasksFrom ? <TasksForm /> : <div>смерть москалям</div>;
+  return (
+    <MainSection>
+      {showTasksFrom ? <TasksForm /> : <EmptyTasksListMessage />}
+    </MainSection>
+  );
 };
 
 export default TrainingPage;

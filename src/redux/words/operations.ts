@@ -9,6 +9,8 @@ import {
   IWordsInfo,
   NewWord,
   ITasks,
+  AnswersRes,
+  Answers,
 } from '@/types/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -195,6 +197,26 @@ export const getTasks = createAsyncThunk<
   async (_, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
       const response = await wordsServiceApi.fetchTasks();
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const sendAnswers = createAsyncThunk<
+  AnswersRes,
+  Answers,
+  {
+    rejectValue: string;
+  }
+>(
+  'words/sendAnswers',
+  async (data, { rejectWithValue }: { rejectWithValue: Function }) => {
+    try {
+      const response = await wordsServiceApi.sendAnswers(data);
       return response;
     } catch (error) {
       if (error instanceof Error) {
